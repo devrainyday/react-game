@@ -13,7 +13,6 @@ class Game extends React.Component {
       stepNumber: 0,
       xIsNext: true, // 다음 플레이어 지정
       lastPosition: null,
-      log: 'Start',
     };
   }
 
@@ -33,6 +32,7 @@ class Game extends React.Component {
         }]),
         stepNumber: history.length,
         xIsNext: !this.state.xIsNext,
+        lastPosition: i,
       });
     }
   }
@@ -46,7 +46,7 @@ class Game extends React.Component {
 
   render() {
     const history = this.state.history;
-    const curr = history[this.state.stepNumber];
+    let curr = history[this.state.stepNumber];
     const winner = calculateWinner(curr.squares);
     
     const moves = history.map((_, move) => {
@@ -73,6 +73,7 @@ class Game extends React.Component {
           <Board
             squares={curr.squares}
             onClick={(i) => this.handleClick(i)}
+            lastPosition={this.state.lastPosition}
           />
         </div>
         <div className="game-info">

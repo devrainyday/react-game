@@ -4,12 +4,18 @@ import Square from './Square';
 // 사각형 9개를 렌더링한다
 class Board extends React.Component {
   renderSquare(i) {
-    return (
-      <Square 
-        value={this.props.squares[i]} 
-        onClick={() => this.props.onClick(i)} 
-      /> // this.handleClick(i)
-    );
+    let value = this.props.squares[i];
+    if (i === this.props.lastPosition) {
+      value = ( // Board단의 renderSquare에서 만져야 제대로 동작한다
+        <span style={{ color: 'red' }}>
+          {value}
+        </span>
+      );
+    }
+    return <Square 
+      value={value} 
+      onClick={() => this.props.onClick(i)} 
+    />; // this.handleClick(i)
   }
   render() {
     return (
